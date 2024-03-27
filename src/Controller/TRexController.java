@@ -52,9 +52,6 @@ public class TRexController {
             scanner.nextLine();
             model.jump();
         }
-
-        // Update T-Rex position based on gravity and jump
-        model.updatePosition();
     }
 
     private void renderGame() {
