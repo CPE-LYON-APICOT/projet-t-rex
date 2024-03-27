@@ -87,14 +87,6 @@ public class TRexModel {
             velocityY = JUMP_STRENGTH;
         }
     }
- 
-    public void crouching() {
-        if (!isCrouching) {
-            isCrouching = true;
-            // Mettez à jour l'écran pour représenter le T-Rex accroupi
-            screen[tRexPositionY][tRexPositionX] = '_';
-        }
-    }
 
     public boolean checkCollision() {
         // Vérifiez si le T-Rex est en collision avec un obstacle

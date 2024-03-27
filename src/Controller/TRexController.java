@@ -46,12 +46,13 @@ public class TRexController {
         // Update the floor and obstacles
         model.updateFloor();
         model.placeObstaclesIfNeeded();
-
-        // Check for jump input
         if (System.in.available() > 0) {
             scanner.nextLine();
             model.jump();
         }
+
+        // Update T-Rex position based on gravity and jump
+        model.updatePosition();
     }
 
     private void renderGame() {
