@@ -36,6 +36,7 @@ public class TRexController {
                 Thread.sleep(500); // Sleep time is reduced for more responsive input
             } catch (InterruptedException e) {
                 e.printStackTrace();
+
             }
         }
     }
@@ -52,7 +53,7 @@ public class TRexController {
         if (reader.ready()) {
             char input = (char) reader.read();
             if (input == 's') {
-                System.out.println("Crouch command received"); // Debug line
+                System.out.println("Crouch command receive"); // Debug line
                 model.crouch();
             } else if (input == 'z') {
                 model.jump();
