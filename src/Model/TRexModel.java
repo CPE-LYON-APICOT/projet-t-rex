@@ -27,6 +27,15 @@ public class TRexModel {
         Arrays.fill(screen[FLOOR_HEIGHT], HORIZON);
     }
 
+    public void crouch() {
+        isCrouching = !isCrouching;
+        // Update the T-Rex's character on the screen based on the crouching state
+        if (isCrouching) {
+            screen[tRexPositionY][tRexPositionX] = 't'; // Lowercase t for crouching
+        } else {
+            screen[tRexPositionY][tRexPositionX] = 'T'; // Uppercase T otherwise
+        }
+    }
     // ... Les autres méthodes sont inchangées ...
 
     public void clearScreen() {
@@ -78,7 +87,8 @@ public class TRexModel {
         // Mise à jour de l'écran pour représenter le T-Rex
         // Assurez-vous que la ligne ci-dessous est à la bonne place dans votre jeu
         // Par exemple, effacez l'ancienne position du T-Rex avant de dessiner la nouvelle
-        screen[tRexPositionY][tRexPositionX] = TREX; 
+        screen[tRexPositionY][tRexPositionX] = TREX;
+        screen[tRexPositionY][tRexPositionX] = isCrouching ? 't' : TREX;
     }
 
     public void jump() {

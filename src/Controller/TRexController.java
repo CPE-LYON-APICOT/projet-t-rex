@@ -1,7 +1,8 @@
 package Controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 
 import Model.TRexModel;
 import Vue.TRexView;
@@ -9,13 +10,13 @@ import Vue.TRexView;
 public class TRexController {
     private TRexModel model;
     private TRexView view;
-    private Scanner scanner;
+    private BufferedReader reader;
     private boolean running = true;
 
     public TRexController(TRexModel model, TRexView view) {
         this.model = model;
         this.view = view;
-        this.scanner = new Scanner(System.in);
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     public void startGame() throws IOException {
@@ -32,13 +33,13 @@ public class TRexController {
 
             // Sleep to control frame rate
             try {
-                Thread.sleep(400); // Add this to slow down the loop for human interaction
+                Thread.sleep(500); // Sleep time is reduced for more responsive input
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-    
+
     private void updateGame() throws IOException {
         // Clear the screen
         model.clearScreen();
@@ -46,12 +47,21 @@ public class TRexController {
         // Update the floor and obstacles
         model.updateFloor();
         model.placeObstaclesIfNeeded();
-        if (System.in.available() > 0) {
-            scanner.nextLine();
-            model.jump();
+
+        // Check for user input
+        if (reader.ready()) {
+            char input = (char) reader.read();
+            if (input == 's') {
+                System.out.println("Crouch command received"); // Debug line
+                model.crouch();
+            } else if (input == 'z') {
+                model.jump();
+            }
+            // Consume the rest of the input line to avoid handling old input in the next frame
+            reader.readLine();
         }
 
-        // Update T-Rex position based on gravity and jump
+        // Update T-Rex position
         model.updatePosition();
     }
 

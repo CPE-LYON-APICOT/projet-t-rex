@@ -14,7 +14,9 @@ public class TRexView {
             }
             System.out.println();
         }
+        System.out.flush(); // Add this line to ensure the buffer is flushed
     }
+    
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
