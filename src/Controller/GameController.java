@@ -3,6 +3,7 @@ package Controller;
 import javax.swing.*;
 
 import Model.GameModel;
+import Model.progression;
 import Vue.GameView;
 
 import java.awt.event.ActionEvent;
@@ -15,17 +16,25 @@ public class GameController extends KeyAdapter implements ActionListener {
     private GameView view;
     private Timer timer;
 
+    @SuppressWarnings("deprecation")
     public GameController(GameModel model, GameView view) {
         this.model = model;
         this.view = view;
-        this.timer = new Timer(100, this);
+        this.timer = new Timer(50 , this);
         timer.start();
+        progression.getInstance().addObserver((o, arg) -> {
+            var nvDelai = (int)(timer.getDelay()* 0.9);
+
+            nvDelai =Math.max(9, (int) (50- java.lang.Math.pow(((progression)o).getProgression() ,1.15)));
+            System.out.println(nvDelai);
+            timer.setDelay(nvDelai);
+        });
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            model.getTRex().jump();
+            model.getTRex().startJump();
         }
     }
 
@@ -33,6 +42,10 @@ public class GameController extends KeyAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         model.update();
         view.repaint();
+    }
+
+    public void jump() {
+        model.getTRex().jump();
     }
 }
 

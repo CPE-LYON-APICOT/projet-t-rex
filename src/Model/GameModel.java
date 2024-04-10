@@ -1,49 +1,160 @@
 package Model;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.List;
 
 public class GameModel {
+    // Constantes pour les dimensions et positions
+    private static final int TREX_WIDTH = 50;
+    private static final int TREX_HEIGHT = 50;
+    private static final int OBSTACLE_WIDTH = 20;
+    private static final int OBSTACLE_HEIGHT = 40;
+    private static final int GROUND_Y = 300;
+    
+    // Variables pour gérer la difficulté du jeu
+    private float gameSpeed = 20.0f; // Vitesse initiale du jeu
+    private float speedIncrease = 20.0f; // Augmentation de la vitesse du jeu
+    int screenWidth = 800;  // Ou la largeur de votre zone de jeu
+    int minSpacing = 400;  // Espace minimal entre les obstacles
+    int randomSpacing = new Random().nextInt(400);
+
+    private TRex tRex;
+    private List<Obstacle> obstacles;
+
+    public GameModel() {
+        tRex = new TRex();
+        obstacles = new ArrayList<>();
+    }
+
+    public boolean checkCollision() {
+        Rectangle trexRect = new Rectangle(tRex.getXPosition(), GROUND_Y - tRex.getYPosition() - TREX_HEIGHT, TREX_WIDTH, TREX_HEIGHT);
+
+        for (Obstacle obstacle : obstacles) {
+            Rectangle obstacleRect = new Rectangle(obstacle.getXPosition(), GROUND_Y - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
+            if (trexRect.intersects(obstacleRect)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void update() {
+        gameSpeed += speedIncrease; // Augmentez la vitesse du jeu progressivement
+    
+        tRex.update(); // Mise à jour du T-Rex
+    
+        // Mise à jour des obstacles
+        for (Obstacle obstacle : obstacles) {
+            obstacle.move(gameSpeed);
+        }
+    
+        // Supprimer les obstacles qui sont sortis de l'écran
+        obstacles.removeIf(obstacle -> obstacle.getXPosition() < -OBSTACLE_WIDTH);
+    
+        // Déterminez si un nouvel obstacle doit être ajouté
+        int rightmostObstacleX = obstacles.isEmpty() ? 0 : obstacles.get(obstacles.size() - 1).getXPosition();
+
+        if (screenWidth - rightmostObstacleX > minSpacing + randomSpacing) {
+            Obstacle newObstacle = new Obstacle(); // Créez le nouvel obstacle
+            obstacles.add(newObstacle);
+            rightmostObstacleX = screenWidth; // Réinitialisez la position du dernier obstacle ajouté
+        }
+
+        var anyObstacleBehindTrex = obstacles.stream().filter(obstacle -> obstacle.getXPosition() < tRex.getXPosition()).findAny();
+        if( anyObstacleBehindTrex.isPresent()) {
+            obstacles.remove(anyObstacleBehindTrex.get());
+            obstaclePassed();
+        }
+
+        // Vérifiez la collision
+        /*if (checkCollision()) {
+            javax.swing.SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Collision! Le jeu est terminé.", "Game Over", JOptionPane.INFORMATION_MESSAGE));
+            gameOver();
+        }/* */
+    }
+    
+    public void gameOver() {
+        obstacles.clear();
+        gameSpeed = 1.0f;
+    }
+
+    public TRex getTRex() {
+        return tRex;
+    }
+
+    public List<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
     public class TRex {
         private int yPosition;
+        private int xPosition;
         private boolean isJumping;
+        private int jumpSpeed = 50; // La vitesse initiale du saut
+        private final int RUN_SPEED = 5;
+        private final int GRAVITY = 3;
 
         public TRex() {
             this.yPosition = 0;
+            this.xPosition = 50; // Position initiale en X pour le T-Rex
             this.isJumping = false;
         }
 
         public void jump() {
             if (!isJumping) {
                 isJumping = true;
-                yPosition = 200; // Hauteur du saut
+                this.jumpSpeed = 30; // Réinitialiser la vitesse du saut pour chaque nouveau saut
             }
         }
 
-        public void fall() {
+        public void update() {
             if (isJumping) {
-                yPosition -= 30; // Vitesse de chute
+                yPosition += jumpSpeed;
+                xPosition += RUN_SPEED;
+                jumpSpeed -= GRAVITY; // Appliquer la gravité pour ramener le T-Rex au sol
+
                 if (yPosition <= 0) {
-                    isJumping = false;
                     yPosition = 0;
+                    xPosition = 50; // Réinitialiser la position en X après atterrissage
+                    isJumping = false;
                 }
             }
         }
 
         public int getYPosition() {
             return yPosition;
+        }
+
+        public int getXPosition() {
+            return xPosition;
+        }
+
+        public boolean isJumping() {
+            return isJumping;
+        }
+
+        public void startJump() {
+            if (!isJumping) {
+                jump();
+            }
         }
     }
 
     public class Obstacle {
         private int xPosition;
-
+        
         public Obstacle() {
-            this.xPosition = 500; // Position initiale
+            this.xPosition = 800; // Position initiale hors de l'écran à droite
         }
 
-        public void move() {
-            xPosition -= 10; // Vitesse de déplacement
+        public float getGameSpeed() {
+            return gameSpeed;
+        }
+
+        public void move(float gameSpeed) {
+            xPosition -= 10; // Vitesse de déplacement des obstacles
         }
 
         public int getXPosition() {
@@ -51,57 +162,8 @@ public class GameModel {
         }
     }
 
-    public class Trex {
-        private int yPosition;
-        private int xPosition;
-        private boolean isJumping;
-        private int jumpPeak;
-        private final int JUMP_SPEED = 5;
-        private final int GRAVITY = 2;
-    
-        public Trex() {
-            this.yPosition = 0;
-            this.xPosition = 50; // Position de départ du T-Rex en X
-            this.isJumping = false;
-            this.jumpPeak = 100; // Hauteur maximale du saut
-        }
-    
-        public void startJump() {
-            if (!isJumping) {
-                isJumping = true;
-            }
-        }
-    
-        public void updateJump() {
-            if (isJumping) {
-                if (yPosition < jumpPeak) {
-                    yPosition += JUMP_SPEED;
-                } else {
-                    isJumping = false;
-                }
-            } else if (yPosition > 0) {
-                yPosition -= GRAVITY;
-            }
-        }
-    
-        public int getYPosition() {
-            return yPosition;
-        }
-    
-        public int getXPosition() {
-            return xPosition;
-        }
+    // Méthode appelée lorsqu'un obstacle est passé
+    public void obstaclePassed() {
+      progression.getInstance().obstaclePasser();
     }
-
-    public void update() {
-        tRex.updateJump();
-        for (Obstacle obstacle : obstacles) {
-            obstacle.move();
-        }
-        if (Math.random() > 0.95) { // Condition pour ajouter des obstacles aléatoirement
-            obstacles.add(new Obstacle());
-        }
-    }
-    
 }
-
