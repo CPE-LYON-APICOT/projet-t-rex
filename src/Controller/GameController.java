@@ -25,7 +25,7 @@ public class GameController extends KeyAdapter implements ActionListener {
         progression.getInstance().addObserver((o, arg) -> {
             var nvDelai = (int)(timer.getDelay()* 0.9);
 
-            nvDelai =Math.max(9, (int) (50- java.lang.Math.pow(((progression)o).getProgression() ,1.15)));
+            nvDelai =Math.max(10, (int) (100- java.lang.Math.pow(((progression)o).getProgression() ,1.25)));
             System.out.println(nvDelai);
             timer.setDelay(nvDelai);
         });

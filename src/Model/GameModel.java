@@ -69,10 +69,10 @@ public class GameModel {
         }
 
         // Vérifiez la collision
-        /*if (checkCollision()) {
+        if (checkCollision()) {
             javax.swing.SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Collision! Le jeu est terminé.", "Game Over", JOptionPane.INFORMATION_MESSAGE));
             gameOver();
-        }/* */
+        }
     }
     
     public void gameOver() {
