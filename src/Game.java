@@ -4,7 +4,7 @@ import Vue.GameView;
 
 public class Game {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> { 
             GameModel model = new GameModel();
             GameView view = new GameView(model);
             JFrame frame = new JFrame("T-Rex Game");
@@ -13,6 +13,8 @@ public class Game {
             frame.pack();
             frame.setVisible(true);
             frame.addKeyListener(new GameController(model, view));
+
+            
         });
     }
 }

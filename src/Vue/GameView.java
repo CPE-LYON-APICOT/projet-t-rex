@@ -1,6 +1,7 @@
 package Vue;
 
 import Model.GameModel;
+import Model.progression;
 import Model.GameModel.TRex;
 
 public class GameView extends JPanel {
@@ -9,6 +10,9 @@ public class GameView extends JPanel {
     public GameView(GameModel model) {
         this.model = model;
         setPreferredSize(new Dimension(800, 400));
+        progression.getInstance().addObserver((o, arg) -> {
+            System.out.println("Progression: " + progression.getInstance().getProgression());
+        });
     }
 
     @Override
@@ -21,7 +25,7 @@ public class GameView extends JPanel {
         List<GameModel.Obstacle> obstacles = model.getObstacles();
         g.setColor(Color.RED);
         for (GameModel.Obstacle obstacle : obstacles) {
-            g.fillRect(obstacle.getXPosition(), 350, 30, 50); // Dessin des obstacles
+            g.fillRect(obstacle.getXPosition(), 350, 20, 60); // Dessin des obstacles
         }
     }
 }
