@@ -25,6 +25,9 @@ public class GameController extends KeyAdapter implements ActionListener {
         progression.getInstance().addObserver((o, arg) -> {
             var nvDelai = (int)(timer.getDelay()* 0.9);
 
+
+
+            // il faut que tu fase en sorte de varier le chiffre qui est le 1.25 pour que le jeu soit plus ou moins rapide
             nvDelai =Math.max(10, (int) (100- java.lang.Math.pow(((progression)o).getProgression() ,1.25)));
             System.out.println(nvDelai);
             timer.setDelay(nvDelai);

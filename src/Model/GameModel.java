@@ -56,6 +56,8 @@ public class GameModel {
         // Déterminez si un nouvel obstacle doit être ajouté
         int rightmostObstacleX = obstacles.isEmpty() ? 0 : obstacles.get(obstacles.size() - 1).getXPosition();
 
+
+        //verifier la condition pour que ca marche
         if (screenWidth - rightmostObstacleX > minSpacing + randomSpacing) {
             Obstacle newObstacle = new Obstacle(); // Créez le nouvel obstacle
             obstacles.add(newObstacle);
