@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 import Controller.GameController;
 import Model.GameModel;
 import Vue.GameView;

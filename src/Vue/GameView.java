@@ -1,12 +1,7 @@
 package Vue;
 
-import javax.swing.*;
-
 import Model.GameModel;
 import Model.GameModel.TRex;
-
-import java.awt.*;
-import java.util.List;
 
 public class GameView extends JPanel {
     private GameModel model;
