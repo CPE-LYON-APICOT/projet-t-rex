@@ -12,7 +12,7 @@ import java.awt.Font;
 
 public class GameView extends JPanel {
     private GameModel model;
-    private final int GROUND_LEVEL = 400; // Correspond au sol dans TRex
+    private final int GROUND_LEVEL = 300; // Correspond au sol dans TRex
 
     public GameView(GameModel model) {
         this.model = model;
@@ -30,13 +30,17 @@ public class GameView extends JPanel {
         super.paintComponent(g);
         TRex tRex = model.getTRex();
         g.setColor(Color.GREEN);
-        g.fillRect(tRex.getXPosition(), GROUND_LEVEL - tRex.getYPosition(), tRex.getWidth(), tRex.getHeight()); // Dessin du T-Rex
+        g.fillRect(tRex.getXPosition(), tRex.getYPosition(), tRex.getWidth(), tRex.getHeight()); // Dessin du T-Rex
 
         List<Obstacle> obstacles = model.getObstacles();
         g.setColor(Color.RED);
         for (Obstacle obstacle : obstacles) {
-            g.fillRect(obstacle.getXPosition(), GROUND_LEVEL - obstacle.getHeight(), obstacle.getWidth(), obstacle.getHeight()); // Dessin des obstacles
+            g.fillRect(obstacle.getXPosition(), obstacle.getYPosition(), obstacle.getWidth(), obstacle.getHeight()); // Dessin des obstacles
         }
+
+        // Dessiner le sol
+        g.setColor(Color.BLACK);
+        g.fillRect(0, GROUND_LEVEL, getWidth(), 5); // Ligne représentant le sol
 
         // Dessiner le score
         g.setColor(Color.WHITE);

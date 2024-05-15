@@ -21,7 +21,7 @@ public class GameModel {
         score = 0;
         gameOver = false;
         obstacleSpeed = 10;
-        obstacleFrequency = 100; // Frequency for obstacle appearance
+        obstacleFrequency = 100;
     }
 
     public TRex getTRex() {
@@ -47,7 +47,6 @@ public class GameModel {
                 obstacle.update(obstacleSpeed);
             }
 
-            // Remove off-screen obstacles
             Iterator<Obstacle> iterator = obstacles.iterator();
             while (iterator.hasNext()) {
                 Obstacle obstacle = iterator.next();
@@ -56,7 +55,6 @@ public class GameModel {
                 }
             }
 
-            // Randomly add new obstacles
             if (random.nextInt(obstacleFrequency) < 5) {
                 obstacles.add(new Obstacle(800));
             }
