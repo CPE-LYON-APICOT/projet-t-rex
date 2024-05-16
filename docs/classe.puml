@@ -1,0 +1,38 @@
+class shark{
++ sauter()
++ s'accroupir()
++ utiliserPouvoir()
+}
+
+abstract obsctacle implements malus,bonus{
+    + taille()
+    + position()
+}
+
+class sol extends obsctacle{
+
+} 
+
+class air extends obsctacle{
+
+}   
+
+interface malus{
+
+}
+
+interface bonus{
+
+}
+
+class pouvoir implements malus,bonus{
+
+}
+
+enum BONUS implements bonus{
+    BONUS1,BONUS2,BONUS3
+}
+
+enum MALUS implements malus{
+    MALUS1,MALUS2,MALUS3
+}
