@@ -59,6 +59,8 @@ public class TRex {
             if (power.isActive()) {
                 applyPower(power);
                 power.update();
+            } else if (power.getType().equals("slow_jump")) {
+                jumpStrength = BASE_JUMP_STRENGTH; // Reset jump strength
             }
         }
     }
@@ -66,13 +68,13 @@ public class TRex {
     public void applyPower(Power power) {
         switch (power.getType()) {
             case "slow_jump":
-                jumpStrength = BASE_JUMP_STRENGTH / 2; // Réduire la force de saut
+                jumpStrength = BASE_JUMP_STRENGTH - 5; // Réduire la force de saut
                 break;
             case "invincibility":
                 // Code pour l'invincibilité, si nécessaire
                 break;
             default:
-                jumpStrength = BASE_JUMP_STRENGTH; // Réinitialiser la force de saut après le malus
+                jumpStrength = BASE_JUMP_STRENGTH + 5; // Réinitialiser la force de saut après le malus
                 break;
         }
     }

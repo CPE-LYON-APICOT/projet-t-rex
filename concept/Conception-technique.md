@@ -92,3 +92,10 @@ La programmation orientée objet (POO) nous a permis de structurer notre code de
 ### Conclusion
 
 Ce projet nous a permis de mieux comprendre les concepts de la POO et leur application dans un projet de jeu vidéo. Nous avons appris l'importance de structurer le code de manière modulaire et avons vu les avantages de l'utilisation des design patterns pour résoudre des problèmes courants. Bien que nous n'ayons pas pu implémenter toutes les fonctionnalités que nous avions envisagées, nous avons réussi à créer un jeu fonctionnel et extensible, et nous avons identifié des pistes d'amélioration pour l'avenir.
+
+
+
+améliorations futures? double power-up?,
+power up decorator
+comment le jeu devient de plus en plus difficile
+*problème obstacles, explicaiton de solutions, manque de temps?

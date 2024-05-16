@@ -35,3 +35,5 @@ Exemple d'utilisation de l'architecture MVC :
 Modèle (GameModel.java) : Contient les données du jeu comme la position du requin, les obstacles, et les power-ups actifs.
 Vue (GameView.java) : Affiche les éléments du jeu à l'écran en utilisant des images (comme cactus.png et teqshark.png).
 Contrôleur (GameController.java) : Gère les entrées utilisateur (par exemple, les sauts du requin) et met à jour le modèle en conséquence.
+
+

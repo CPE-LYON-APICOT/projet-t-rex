@@ -28,17 +28,17 @@ public class GameView extends JPanel {
         this.model = model;
         setPreferredSize(new Dimension(800, 400));
         setOpaque(true);
-        backgroundImage = new ImageIcon("projet-t-rex\\src\\Vue\\fond.gif").getImage();
+        backgroundImage = new ImageIcon("src\\Vue\\fond.gif").getImage();
 
         // Charger l'image du T-Rex
-        ImageIcon trexIcon = new ImageIcon("projet-t-rex\\src\\Vue\\teqshark.png");
+        ImageIcon trexIcon = new ImageIcon("src\\Vue\\teqshark.png");
         trexImage = trexIcon.getImage();
         if (trexImage == null) {
             System.out.println("Erreur : l'image teqshark.png n'a pas été chargée.");
         }
 
         // Charger l'image de l'obstacle
-        ImageIcon obstacleIcon = new ImageIcon("projet-t-rex\\src\\Vue\\cactus.png");
+        ImageIcon obstacleIcon = new ImageIcon("src\\Vue\\cactus.png");
         obstacleImage = obstacleIcon.getImage();
         if (obstacleImage == null) {
             System.out.println("Erreur : l'image cactus.png n'a pas été chargée.");
@@ -74,14 +74,14 @@ public class GameView extends JPanel {
 
         List<Power> powers = tRex.getPowers();
         if (!powers.isEmpty()) {
-            for (Power power : powers) {
-                if (power.isActive()) {
-                    g.drawString("Power: " + power.getType() + " (" + power.getDuration() / 60 + "s)", 10, 50);
-                }if (power.isActive()) {
-                    g.drawString("Power: " + power.getType() + " (" + power.getDuration() / 60 + "s)", 10, 100);
-                }
-            }
+        int powerCount = 0;
+        for (Power power : powers) {
+            if (power.isActive()) {
+                g.drawString("Power: " + power.getType() + " (" + power.getDuration() / 60 + "s)", 10, 50 + powerCount * 50);
+                powerCount++;
         }
+    }
+}
 
         if (model.isGameOver()) {
             g.setFont(new Font("Arial", Font.BOLD, 40));

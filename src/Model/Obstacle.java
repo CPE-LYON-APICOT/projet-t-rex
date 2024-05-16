@@ -7,18 +7,17 @@ public class Obstacle {
     private final int height;
     private final int GROUND_LEVEL = 300;
     private final int MIN_SPACE = 100; // Minimum space between obstacles
-    private final int MAX_SPACE = 300; // Maximum space between obstacles
-    private final int MIN_JUMP_SPACE = 150; // Minimum space to allow jumping
+    private final int MAX_SPACE = 150; // Maximum space between obstacles
+
+    private static int lastXPosition = 0; // Track the position of the last created obstacle
 
     public Obstacle(int xPosition) {
-        this.xPosition = xPosition;
+        this.xPosition = Math.max(xPosition, lastXPosition + MIN_SPACE);
         this.width = 20;  // Fixed width for simplicity
         this.height = 40; // Fixed height for simplicity
         this.yPosition = GROUND_LEVEL - height; // Y position based on obstacle height and ground level
-        int space = (int) (Math.random() * (MAX_SPACE - MIN_JUMP_SPACE + 1)) + MIN_JUMP_SPACE; // Randomly generate space between obstacles ensuring enough space for a jump
-        this.xPosition += space + 100; // Add space to x position
+        lastXPosition = this.xPosition + this.width + (int) (Math.random() * (MAX_SPACE - MIN_SPACE + 1)) + MIN_SPACE; // Update lastXPosition
     }
-        
 
     public int getXPosition() {
         return xPosition;
@@ -37,11 +36,11 @@ public class Obstacle {
     }
 
     public void update(int speed) {
-        xPosition -= speed; // Déplacer l'obstacle en fonction de la vitesse
+        xPosition -= speed; // Move obstacle based on speed
     }
 
     public boolean isOffScreen() {
-        return xPosition + width < 0; // Vérifie si l'obstacle est sorti de l'écran
+        return xPosition + width < 0; // Check if the obstacle is off screen
     }
 
     public boolean collidesWith(TRex tRex) {
