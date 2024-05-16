@@ -5,7 +5,7 @@ public class TRex {
     private int yPosition;
     private int yVelocity;
     private final int GRAVITY = 1;
-    private final int JUMP_STRENGTH = 15;
+    private final int JUMP_STRENGTH = 13;
     private final int GROUND_LEVEL = 300;
     private final int WIDTH = 40;
     private final int HEIGHT = 40;

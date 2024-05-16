@@ -4,21 +4,29 @@ import Model.GameModel;
 import Model.TRex;
 import Model.Obstacle;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import java.awt.Graphics;
 import java.util.List;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import java.io.File;
 
 public class GameView extends JPanel {
     private GameModel model;
     private final int GROUND_LEVEL = 300; // Correspond au sol dans TRex
+    private Image trexImage; // Déclarer l'image du T-Rex
 
     public GameView(GameModel model) {
         this.model = model;
         setPreferredSize(new Dimension(800, 400));
         setOpaque(true);
         setBackground(Color.BLUE); // Changer la couleur de fond
+
+        // Charger l'image du T-Rex
+        ImageIcon ii = new ImageIcon("C:\\Users\\HP\\Documents\\Cours\\CPE\\Deuxième semestre\\POO\\shark\\projet-t-rex\\src\\Vue\\teqshark.png"); // Chemin relatif
+        trexImage = ii.getImage();
     }
 
     public GameModel getModel() {
@@ -29,8 +37,9 @@ public class GameView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         TRex tRex = model.getTRex();
-        g.setColor(Color.GREEN);
-        g.fillRect(tRex.getXPosition(), tRex.getYPosition(), tRex.getWidth(), tRex.getHeight()); // Dessin du T-Rex
+
+        // Dessiner l'image du T-Rex
+        g.drawImage(trexImage, tRex.getXPosition(), tRex.getYPosition(), tRex.getWidth(), tRex.getHeight(), this);
 
         List<Obstacle> obstacles = model.getObstacles();
         g.setColor(Color.RED);
