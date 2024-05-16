@@ -2,11 +2,13 @@ package Model;
 
 public class Power {
     private String type;
-    private int duration = 300; 
+    private int duration; // Durée du pouvoir en frames ou ticks
+    private boolean isActive;
 
     public Power(String type, int duration) {
         this.type = type;
         this.duration = duration;
+        this.isActive = false;
     }
 
     public String getType() {
@@ -17,17 +19,23 @@ public class Power {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void activate() {
+        this.isActive = true;
     }
 
-    public void decrementDuration() {
-        if (duration > 0) {
+    public void deactivate() {
+        this.isActive = false;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void update() {
+        if (isActive && duration > 0) {
             duration--;
+        } else {
+            deactivate();
         }
-    }
-
-    public boolean isExpired() {
-        return duration <= 0;
     }
 }
