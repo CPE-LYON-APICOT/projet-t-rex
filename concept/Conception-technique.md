@@ -36,7 +36,7 @@ Nous avons atteint une grande partie de notre objectif. Le jeu de base fonctionn
 
 ### Améliorations possibles
 
-Nous aurions pu si y avait plus de temps ajouter les powers qui sont des malus et ajouter des obstacles dans le ciel. On aurait aussi pu mettre en place un système pour le score et faire en sorte de retenir les scores précédents pour qu'il y ait des records à battre.
+Nous aurions pu si y avait plus de temps ajouter des obstacles dans le ciel. On aurait aussi pu mettre en place un système pour le score et faire en sorte de retenir les scores précédents pour qu'il y ait des records à battre.
 
 ---
 # Partie "Développeur" (plus technique) :
@@ -48,9 +48,9 @@ Nous sommes particulièrement fiers de l'implémentation des pouvoirs dans le je
 
 ### Faiblesses du code
 
-- Gestion des collisions : actuellement, les collisions sont gérées de manière basique avec des hit box rectangulaires. Cela peut entraîner des situations où les collisions ne semblent pas réalistes.
+- Actuellement, les collisions sont gérées de manière basique avec des hit box rectangulaires. Cela peut entraîner des situations où les collisions ne semblent pas réalistes.
 
-- Code monolithique : certaines partie du code, notamment la gestion des obstacles, pourraient être mieux modulaires pour faciliter l'extension et la maintenance.
+- Certaines partie du code, notamment la gestion des obstacles, pourraient être mieux modulaires pour faciliter l'extension et la maintenance.
 
 ### Difficultés rencontrées
 
