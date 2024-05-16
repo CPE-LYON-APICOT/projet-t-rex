@@ -95,8 +95,11 @@ public class GameModel {
     }
 
     private void checkForPowers() {
-        if (score % 200 == 0 && !tRex.hasPower("invincibility")) {
-            tRex.addPower(new Power("invincibility", 300)); // 5 secondes à 60 FPS
+        if (score % 300 == 0 && !tRex.hasPower("invincibility")) {
+            tRex.addPower(new Power("invincibility", 200)); 
+        }
+        if (score % 450 == 0 && !tRex.hasPower("slow_jump")) {
+            tRex.addPower(new Power("slow_jump", 80));
         }
     }
 

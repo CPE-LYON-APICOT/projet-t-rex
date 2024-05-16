@@ -21,22 +21,24 @@ public class GameView extends JPanel {
     private final int GROUND_LEVEL = 300; // Correspond au sol dans TRex
     private Image trexImage; // Déclarer l'image du T-Rex
     private Image obstacleImage; 
+    private Image backgroundImage;
+
 
     public GameView(GameModel model) {
         this.model = model;
         setPreferredSize(new Dimension(800, 400));
         setOpaque(true);
-        setBackground(Color.BLUE); // Changer la couleur de fond
+        backgroundImage = new ImageIcon("projet-t-rex\\src\\Vue\\fond.gif").getImage();
 
         // Charger l'image du T-Rex
-        ImageIcon trexIcon = new ImageIcon("src/Vue/teqshark.png");
+        ImageIcon trexIcon = new ImageIcon("projet-t-rex\\src\\Vue\\teqshark.png");
         trexImage = trexIcon.getImage();
         if (trexImage == null) {
             System.out.println("Erreur : l'image teqshark.png n'a pas été chargée.");
         }
 
         // Charger l'image de l'obstacle
-        ImageIcon obstacleIcon = new ImageIcon("src/Vue/cactus.png");
+        ImageIcon obstacleIcon = new ImageIcon("projet-t-rex\\src\\Vue\\cactus.png");
         obstacleImage = obstacleIcon.getImage();
         if (obstacleImage == null) {
             System.out.println("Erreur : l'image cactus.png n'a pas été chargée.");
@@ -51,6 +53,8 @@ public class GameView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         TRex tRex = model.getTRex();
+
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         g.drawImage(trexImage, tRex.getXPosition(), tRex.getYPosition(), tRex.getWidth(), tRex.getHeight(), this);
         
@@ -73,6 +77,8 @@ public class GameView extends JPanel {
             for (Power power : powers) {
                 if (power.isActive()) {
                     g.drawString("Power: " + power.getType() + " (" + power.getDuration() / 60 + "s)", 10, 50);
+                }if (power.isActive()) {
+                    g.drawString("Power: " + power.getType() + " (" + power.getDuration() / 60 + "s)", 10, 100);
                 }
             }
         }
