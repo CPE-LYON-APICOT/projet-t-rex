@@ -59,14 +59,17 @@ public class GameModel {
                 obstacles.add(new Obstacle(800));
             }
 
-            // Increase difficulty over time
+            // Augmenter la difficulté au fil du temps
             increaseDifficulty();
 
-            // Check for collisions
+            // Vérifier les collisions
             checkCollisions();
 
-            // Update score
+            // Mettre à jour le score
             score++;
+
+            // Vérifier les pouvoirs
+            checkForPowers();
         }
     }
 
@@ -84,8 +87,16 @@ public class GameModel {
             if (tRex.getXPosition() + tRex.getWidth() > obstacle.getXPosition() &&
                 tRex.getXPosition() < obstacle.getXPosition() + obstacle.getWidth() &&
                 tRex.getYPosition() + tRex.getHeight() > obstacle.getYPosition()) {
-                gameOver = true;
+                if (!tRex.hasPower("invincibility")) {
+                    gameOver = true;
+                }
             }
+        }
+    }
+
+    private void checkForPowers() {
+        if (score % 200 == 0 && !tRex.hasPower("invincibility")) {
+            tRex.addPower(new Power("invincibility", 300)); // 5 secondes à 60 FPS
         }
     }
 
@@ -98,4 +109,3 @@ public class GameModel {
         obstacleFrequency = 100;
     }
 }
-

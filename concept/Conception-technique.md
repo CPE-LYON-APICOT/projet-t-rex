@@ -1,8 +1,8 @@
 
 # Retro-conception
 
-**Binome 1 : [Nom Prénom]**
-**Binome 2 : [Nom Prénom]**
+**Binome 1 : [Villeroy de Galhau Côme]**
+**Binome 2 : [Zoppini Maxime]**
 
 Complétez ce document pour décrire votre projet, les difficultés rencontrées, les design patterns mis en oeuvre, les améliorations possibles, et en quoi la POO vous a été utile.
 
@@ -28,15 +28,15 @@ Dans ces documents, il ne s'agit pas de cacher la poussière sous le tapis, il f
 
 ## Objectif du projet
 
-[Décrivez ici l'objectif initial du projet, ne cherchez pas à le minorer si vous n'avez pas tout fini, décrivez ce que vous avez voulu faire]
+L'objectif initial du projet était de créer un jeu qui est inspiré par le jeu du T-Rex de Google Chrome avec des fonctionnalités supplémentaires pour rendre le jeu plus intéressant et engageant. Nous voulions que le T-Rex soit un requin dessiné par nous-même, qu'il puisse acquérir des pouvoirs spéciaux après avoir atteint certains scores, améliorant ainsi la jouabilité et la dynamique du jeu.
 
 ## Résultat
 
-[Avez vous atteint votre objectif ?]
+Nous avons atteint une grande partie de notre objectif. Le jeu de base fonctionne comme prévu, avec le requin qui court et saute pour éviter des obstacles. Nous avons également implémenté des pouvoirs spéciaux qui s'activent après avoir atteint certains scores, offrant des périodes d'immunité qui durent 5 secondes. 
 
 ### Améliorations possibles
 
-[Décrivez ici les améliorations que vous auriez pu apporter si vous aviez eu plus de temps]
+Nous aurions pu si y avait plus de temps ajouter les powers qui sont des malus et ajouter des obstacles dans le ciel. On aurait aussi pu mettre en place un système pour le score et faire en sorte de retenir les scores précédents pour qu'il y ait des records à battre.
 
 ---
 # Partie "Développeur" (plus technique) :
@@ -44,45 +44,42 @@ Dans ces documents, il ne s'agit pas de cacher la poussière sous le tapis, il f
 
 ### Implémentations remarquables
 
-[Si pendant votre implémentation, vous trouvez que vous pouvez être particulièrment fiers d'une partie de votre code, décrivez là ici ; par exemple si vous avez généré une carte de manière procédurale, ou à l'aide d'un fichier]
+Nous sommes particulièrement fiers de l'implémentation des pouvoirs dans le jeu. La classe Power permet une gestion facile et extensible des différents types de pouvoirs. Chaque pouvoir a une durée de vie et un état actif, ce qui permet de les activer et de les désactiver facilement, et la manière dont nous avons codé l'application nous permet de pouvoir ajouter des choses avec une certaine facilité.
 
 ### Faiblesses du code
 
-[C'est ici que vous me dites ce que vous savez que vous avez mal fait, expliquez pourquoi vous avez fait ce choix (manque de temps, manque de compétence, trop pénible à faire, etc.)]
+- Gestion des collisions : actuellement, les collisions sont gérées de manière basique avec des hit box rectangulaires. Cela peut entraîner des situations où les collisions ne semblent pas réalistes.
+
+- Code monolithique : certaines partie du code, notamment la gestion des obstacles, pourraient être mieux modulaires pour faciliter l'extension et la maintenance.
 
 ### Difficultés rencontrées
 
-#### 1. [Génération dynamique des ... pour ...]
+#### 1. [Génération dynamique des obstacles pour fluidifier]
 
-[Expliquez ici la difficulté rencontrée et comment vous l'avez contournée]
+Nous avons eu des difficultés a fluidifié notre jeu, car il manquait de FPS au début. Mais nous avons essayé de faire plusieurs méthodes pour gérer ce souci notamment avec un écouteur qui supprimait les obstacles une fois le requin passé.
 
-#### 2. [Gestion des collisions]
+#### 2. [Implémentation des images créer par nous même]
 
-[Exemple : Nous n'avons pas réussi à gérer les collisions, PARCE QUE, mes objets n'héritaient pas d'une classe commune, car nos objets héirtaient de ... et nos personnages de ...]
+Nous avons fait le choix de faire nous-même les images de notre jeu et nous ne connaissions pas la librairie swing donc nous avons du découvrir comment cela marchait.
 
 
 ### *Design Patterns* mis en oeuvre
 
 #### 1. [Factory]
-[Décrivez ici brièvement le design pattern utilisé et pourquoi]
-[Ajouter éventuellement des exemples de code pour montrer l'élégence de votre solution, pour cela vous pouvez écrire en Markdown votre code ainsi :
+
+Nous avons utilisé le pattern Factory pour créer des instances d'obstacles de manière dynamique. Cela nous permet d'ajouter facilement de nouveaux types d'obstacles à l'avenir sans modifier le code existant.
 
 <pre>
 ```java
-public class Factory {
-    public static Object createObject(String type) {
-        if (type.equals("type1")) {
-            return new Type1();
-        } else if (type.equals("type2")) {
-            return new Type2();
-        }
-        return null;
+public class ObstacleFactory {
+    public static Obstacle createObstacle(int xPosition) {
+        // Vous pouvez ajouter ici des conditions pour créer différents types d'obstacles
+        return new Obstacle(xPosition);
     }
 }
 ```
 </pre>
 
-]
 
 ---
 # Partie pédagogique
@@ -90,9 +87,8 @@ public class Factory {
 
 ### En quoi la POO vous a été utile
 
-[Par exemple, expliquez que vous auriez éprouvé des difficultés à gérer les collisions si vous n'aviez pas utilisé la POO, ou que vous avez pu facilement ajouter des fonctionnalités à votre jeu grâce à la POO
-Minimum 10 lignes (personnalisé en fonction de votre projet)]
+La programmation orientée objet (POO) nous a permis de structurer notre code de manière modulaire et extensible. Grâce à la POO, nous avons pu créer des classes distinctes pour les différentes entités du jeu (TRex, Obstacle, Power), ce qui a simplifié la gestion des interactions entre ces entités. Par exemple, l'utilisation de la classe TRex a facilité la modélisation de notre personnage et la gestion des pouvoirs spéciaux. De plus, la POO a permis une meilleure utilisation du code, rendant le projet plus facile à maintenir et à étendre.
 
 ### Conclusion
 
-[Décrivez ici si vous avez compris un concept particulier que vous n'aviez pas compris en cours, inversement si vous pensiez qu'il était possible de faire qqchose mais que cela ne s'est pas passé comme prévu]
+Ce projet nous a permis de mieux comprendre les concepts de la POO et leur application dans un projet de jeu vidéo. Nous avons appris l'importance de structurer le code de manière modulaire et avons vu les avantages de l'utilisation des design patterns pour résoudre des problèmes courants. Bien que nous n'ayons pas pu implémenter toutes les fonctionnalités que nous avions envisagées, nous avons réussi à créer un jeu fonctionnel et extensible, et nous avons identifié des pistes d'amélioration pour l'avenir.
